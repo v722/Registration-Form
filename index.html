@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Registration</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<script>
+		function display(){
+			document.getElementById("page2").style.display = 'table';
+			document.getElementById("page3").style.display = 'none' ;
+			document.getElementById("page1").style.display = 'none' ;
+		}
+		function userList(){
+			document.getElementById("page1").style.display = 'none';
+			document.getElementById("page2").style.display = 'table';
+			document.getElementById("page3").style.display = 'table';
+		}
+		var registerArray = [];
+		var selectedIndex = -1;
+		function yest(){
+			document.getElementById("tableInsertRows").innerHTML = "";
+			if(localStorage.result){
+				registerArray = JSON.parse(localStorage.result);
+				for(var i=0; i<registerArray.length;i++){
+					var firstName = registerArray[i].firstname;
+					var lastName = registerArray[i].lastname;
+					var address = registerArray[i].address;
+					tableTop(i,firstName,lastName,address);
+	
+				}
+				 	
+			}
+		}
+
+		function ontakeDetail(){
+			var firstName = document.getElementById("firstname").value;
+			var lastName = document.getElementById("lastname").value;
+			var address = document.getElementById("address").value;
+
+			var obj = {
+				firstname: firstName,
+				lastname: lastName,
+				address: address,
+			};
+			if(selectedIndex === -1){
+				registerArray.push(obj);	
+			}
+			else{
+				registerArray.splice(selectedIndex,1,obj);
+			}
+			
+
+			localStorage.result = JSON.stringify(registerArray);
+			yest();
+			clearField();
+		}
+		
+		function tableTop(index,firstName,lastName,address){
+			var table = document.getElementById("tableInsertRows");
+			var row = table.insertRow();
+			var firstNameCell = row.insertCell(0);
+			var lastNameCell = row.insertCell(1);
+			var addressCell = row.insertCell(2);
+			var actionCell = row.insertCell(3);
+
+			firstNameCell.innerHTML =  firstName;
+			lastNameCell.innerHTML = lastName;
+			addressCell.innerHTML = address;
+			actionCell.innerHTML = '<button onclick="onEditDetail('+index+')">Edit</button><br/><button onclick="onDeleteDetail('+index+')">delete</button>';
+
+		}
+		function onDeleteDetail(index){
+			registerArray.splice(index,1);
+			localStorage.result = JSON.stringify(registerArray);
+			yest();
+		}
+		function clearField(){
+			selectedIndex =-1;
+			document.getElementById("firstname").value ="";
+			document.getElementById("lastname").value ="";
+			document.getElementById("address").value ="";
+			document.getElementById("submit").innerHTML = "Submit";
+
+		}
+		function onEditDetail(index){
+			selectedIndex = index;
+			var updateObj = registerArray[index];
+			document.getElementById("firstname").value = updateObj.firstname;
+			document.getElementById("lastname").value = updateObj.lastname;
+			document.getElementById("address").value = updateObj.address;
+			document.getElementById("submit").innerHTML = 'Upgrade';
+					
+		}
+
+
+	</script>
+</head>
+<body onload="yest()">
+	<div>
+		<header>
+			<p>USER MANAGEMENT<i class="fa fa-user-circle" aria-hidden="true"></i></p>
+			
+		</header>
+	</div>
+	<div id="page1">
+		<button id="user" onclick="display()">Add User<i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+	</div>
+	<div>
+
+		<div id="page2">
+			<label for="firstname"> First Name : </label>
+			<input id="firstname" type="text" placeholder="Enter First Name">
+			<label for="lastname"> Last Name : </label>
+			<input id="lastname" type="text" placeholder="Enter Last Name">
+			<label for="address"> Address : </label>
+			<input id="address" type="text" placeholder="Enter Address">
+			<button id="submit" onclick="ontakeDetail()">Submit</button>
+			<button onclick="clearField()">Clear</button>
+			<button onclick="userList()">UserList</button>
+				
+		</div>
+		<div id="page3">
+			<table id="tableView">
+				<tr>
+					<th>First-Name</th>
+					<th>Last-Name</th>
+					<th>Address</th>
+					<th id="action">Action</th>
+				</tr>
+				<tbody id="tableInsertRows">
+					<tr></tr>
+				</tbody>
+
+
+			</table>
+		</div>
+	</div>
+</body>
+</html>

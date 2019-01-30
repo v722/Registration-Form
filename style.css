@@ -1,0 +1,59 @@
+header{
+	background-color: grey;
+	padding: 2px;
+	padding-left: 15px;
+	color: #fff;
+}
+h2{
+	font-size: 1.1em;
+
+}
+.fa-user-circle{
+	margin-left: 1050px;
+}
+td,th{
+	border: 1px solid grey;
+}
+#page2{
+	display: none;
+	border: 1px solid lightgrey;
+	padding: 20px;
+	padding-top: 50px;
+	padding-left: 50px;
+	padding-right: 70px;
+	padding-bottom: 50px;
+	margin-top: 20px;
+	width: 300px;
+	background-color: lightgrey;
+	float: left;
+}
+#page3{
+	border: 1px solid grey;
+	float: left;
+	margin-top: 20px;
+	margin-left: 80px;
+}
+table{
+	border-collapse: collapse;
+	text-align: center;
+	width: 650px;
+	border: 1px solid grey;
+}
+button{
+	margin-top: 10px;
+	margin-right: 10px;
+	cursor: pointer;
+}
+.fa-plus-circle{
+	margin-left: 10px;
+}
+#page3{
+	display: none;
+}
+input{
+	width: 300px;
+}
+#address{
+	text-align: left;
+	height: 150px;
+}
